@@ -20,6 +20,9 @@ public class Group {
     @Builder.Default
     List<Participant> participants = new ArrayList<>();
 
+    @Builder.Default
+    DebtSummary debtSummary = new DebtSummary();
+
     public void addParticipant(Participant participant) {
         this.participants.add(participant);
     }
@@ -34,6 +37,7 @@ public class Group {
         var newTransactions = participants.stream()
                 .filter(participant -> participant.getId() != payment.from)
                 .map(participant -> {
+                    debtSummary.addDebt(payment.from, participant.getId(), valueForEach);
                     return Outcome.builder()
                             .from(payment.from)
                             .to(participant.getId())
