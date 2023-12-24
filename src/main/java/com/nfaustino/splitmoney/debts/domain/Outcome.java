@@ -1,4 +1,4 @@
-package com.nfaustino.splitmoney.owes.domain;
+package com.nfaustino.splitmoney.debts.domain;
 
 import java.math.BigDecimal;
 import java.time.Instant;
