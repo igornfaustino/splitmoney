@@ -12,7 +12,6 @@ import lombok.Data;
 @Builder
 public class Group {
     int id;
-    String name;
 
     @Builder.Default
     List<Transaction> history = new ArrayList<>();
@@ -22,10 +21,6 @@ public class Group {
 
     @Builder.Default
     DebtSummary debtSummary = new DebtSummary();
-
-    public void addParticipant(Participant participant) {
-        this.participants.add(participant);
-    }
 
     public void addPaymentSplitEqual(Payment payment) {
         addPaymentSplitEqual(payment, this.participants);

@@ -1,4 +1,4 @@
-package com.nfaustino.splitmoney.debts.domain;
+package com.nfaustino.splitmoney.groups.domain;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,4 +7,5 @@ import lombok.Data;
 @Builder
 public class Participant {
     int id;
+    String name;
 }
