@@ -28,7 +28,7 @@ public class CreateGroupUseCaseTest {
     @Test
     void should_CreateANewGroup() {
         var input = new CreateGroupInput("test");
-        when(groupService.saveGroup(groupCaptor.capture())).thenReturn(Group.builder().id(1).name("test").build());
+        when(groupService.save(groupCaptor.capture())).thenReturn(Group.builder().id(1).name("test").build());
 
         var output = useCase.execute(input);
 

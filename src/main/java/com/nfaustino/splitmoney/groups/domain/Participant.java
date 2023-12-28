@@ -16,10 +16,10 @@ public class Participant {
         this.name = name.trim();
     }
 
-    static class ParticipantBuilder {
+    public static class ParticipantBuilder {
         String name;
 
-        ParticipantBuilder name(String name) {
+        public ParticipantBuilder name(String name) {
             this.name = name.trim();
             return this;
         }

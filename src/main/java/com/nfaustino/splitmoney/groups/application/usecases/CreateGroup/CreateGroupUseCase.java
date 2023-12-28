@@ -14,7 +14,7 @@ public class CreateGroupUseCase extends UseCase<CreateGroupInput, CreateGroupOut
     @Override
     public CreateGroupOutput execute(CreateGroupInput input) {
         var group = Group.builder().name(input.name()).build();
-        var savedGroup = groupService.saveGroup(group);
+        var savedGroup = groupService.save(group);
         return CreateGroupOutput.builder()
                 .id(savedGroup.getId())
                 .name(savedGroup.getName())
