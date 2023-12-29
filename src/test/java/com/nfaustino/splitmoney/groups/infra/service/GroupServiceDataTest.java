@@ -10,7 +10,7 @@ import com.nfaustino.splitmoney.SplitmoneyApplication;
 import com.nfaustino.splitmoney.groups.domain.Group;
 import com.nfaustino.splitmoney.shared.infra.repositories.GroupRepository;
 
-@SpringBootTest(classes = SplitmoneyApplication.class)
+@SpringBootTest(classes = { SplitmoneyApplication.class })
 public class GroupServiceDataTest {
     @Autowired
     GroupServiceData groupServiceData;
@@ -19,7 +19,7 @@ public class GroupServiceDataTest {
     GroupRepository groupRepository;
 
     @Test
-    void should_saveNewGroup() {
+    public void should_saveNewGroup() {
         var result = groupServiceData.save(Group.builder().name("Teste").build());
 
         assertThat(result.getId()).isNotEqualTo(0);
