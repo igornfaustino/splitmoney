@@ -6,11 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.nfaustino.splitmoney.SplitmoneyApplication;
 import com.nfaustino.splitmoney.groups.domain.Group;
 import com.nfaustino.splitmoney.shared.infra.repositories.GroupRepository;
 
-@SpringBootTest(classes = { SplitmoneyApplication.class })
+@SpringBootTest
 public class GroupServiceDataTest {
     @Autowired
     GroupServiceData groupServiceData;

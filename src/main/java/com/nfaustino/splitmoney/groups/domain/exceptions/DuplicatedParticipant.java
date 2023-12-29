@@ -1,6 +1,8 @@
 package com.nfaustino.splitmoney.groups.domain.exceptions;
 
-public class DuplicatedParticipant extends RuntimeException {
+import com.nfaustino.splitmoney.shared.base.exceptions.BadRequest;
+
+public class DuplicatedParticipant extends BadRequest {
     public DuplicatedParticipant(String name) {
         super("Participant with name %s already exists".formatted(name));
     }

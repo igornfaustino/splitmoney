@@ -1,6 +1,8 @@
 package com.nfaustino.splitmoney.groups.domain.exceptions;
 
-public class GroupNotFound extends RuntimeException {
+import com.nfaustino.splitmoney.shared.base.exceptions.BadRequest;
+
+public class GroupNotFound extends BadRequest {
     public GroupNotFound(int group) {
         super("Group with id %d was not found".formatted(group));
     }

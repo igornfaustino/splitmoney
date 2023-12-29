@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nfaustino.splitmoney.groups.application.usecases.CreateGroup.CreateGroupOutput;
 import com.nfaustino.splitmoney.groups.application.usecases.CreateGroup.CreateGroupUseCase;
 import com.nfaustino.splitmoney.groups.infra.mappers.GroupMapper;
+import com.nfaustino.splitmoney.shared.base.ApiResponse;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,9 +21,9 @@ public class GroupController {
     GroupMapper mapper;
 
     @PostMapping()
-    public CreateGroupOutput createGroup(@Valid @RequestBody CreateGroupRestInput data) {
+    public ApiResponse<CreateGroupOutput> createGroup(@Valid @RequestBody CreateGroupRestInput data) {
         var input = mapper.fromCreateGroupResInput(data);
         var response = createGroupUseCase.execute(input);
-        return response;
+        return ApiResponse.ok(response);
     }
 }
