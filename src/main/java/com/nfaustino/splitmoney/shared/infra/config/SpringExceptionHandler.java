@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.nfaustino.splitmoney.shared.base.ApiResponse;
 import com.nfaustino.splitmoney.shared.base.exceptions.BadRequest;
+import com.nfaustino.splitmoney.shared.base.exceptions.NotFound;
 
 @ControllerAdvice
 @Component("error")
@@ -34,6 +35,14 @@ public class SpringExceptionHandler
         ex.printStackTrace();
         return handleExceptionInternal(ex, ApiResponse.badRequest(ex.getMessage()),
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(value = { NotFound.class })
+    public ResponseEntity<Object> handleException(
+            NotFound ex, WebRequest request) {
+        ex.printStackTrace();
+        return handleExceptionInternal(ex, ApiResponse.notFound(ex.getMessage()),
+                new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     @ExceptionHandler(value = { Exception.class })

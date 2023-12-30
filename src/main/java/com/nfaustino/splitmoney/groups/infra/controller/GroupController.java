@@ -38,4 +38,5 @@ public class GroupController {
         var response = addParticipantUseCase.execute(input);
         return ApiResponse.ok(response);
     }
+
 }

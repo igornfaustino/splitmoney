@@ -45,4 +45,11 @@ public class ApiResponse<T> {
                 .build();
     }
 
+    public static ApiResponse<ErrorResponse> notFound(String message) {
+        return ApiResponse.<ErrorResponse>builder()
+                .success(false)
+                .message(message)
+                .build();
+    }
+
 }
