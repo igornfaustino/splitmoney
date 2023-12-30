@@ -1,6 +1,6 @@
 package com.nfaustino.splitmoney.groups.application.usecases.CreateGroup;
 
-import com.nfaustino.splitmoney.groups.application.service.GroupService;
+import com.nfaustino.splitmoney.groups.application.services.GroupService;
 import com.nfaustino.splitmoney.groups.domain.Group;
 import com.nfaustino.splitmoney.shared.base.UseCase;
 

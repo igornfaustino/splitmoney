@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.nfaustino.splitmoney.groups.application.service.GroupService;
+import com.nfaustino.splitmoney.groups.application.services.GroupService;
 import com.nfaustino.splitmoney.groups.domain.Group;
 
 @ExtendWith(MockitoExtension.class)

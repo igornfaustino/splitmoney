@@ -1,6 +1,6 @@
 package com.nfaustino.splitmoney.groups.application.usecases.AddParticipant;
 
-import com.nfaustino.splitmoney.groups.application.service.GroupService;
+import com.nfaustino.splitmoney.groups.application.services.GroupService;
 import com.nfaustino.splitmoney.groups.domain.Participant;
 import com.nfaustino.splitmoney.groups.domain.exceptions.GroupNotFound;
 import com.nfaustino.splitmoney.shared.base.UseCase;
