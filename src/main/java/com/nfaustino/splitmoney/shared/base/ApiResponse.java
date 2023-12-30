@@ -31,22 +31,22 @@ public class ApiResponse<T> {
                 .build();
     }
 
-    public static ApiResponse<ErrorResponse> validationError(String message) {
-        return ApiResponse.<ErrorResponse>builder()
+    public static ApiResponse<Void> validationError(String message) {
+        return ApiResponse.<Void>builder()
                 .success(false)
                 .message(message)
                 .build();
     }
 
-    public static ApiResponse<ErrorResponse> badRequest(String message) {
-        return ApiResponse.<ErrorResponse>builder()
+    public static ApiResponse<Void> badRequest(String message) {
+        return ApiResponse.<Void>builder()
                 .success(false)
                 .message(message)
                 .build();
     }
 
-    public static ApiResponse<ErrorResponse> notFound(String message) {
-        return ApiResponse.<ErrorResponse>builder()
+    public static ApiResponse<Void> notFound(String message) {
+        return ApiResponse.<Void>builder()
                 .success(false)
                 .message(message)
                 .build();
