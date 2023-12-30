@@ -36,10 +36,10 @@ public class SpringExceptionHandler
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler(value = { RuntimeException.class })
-    public ResponseEntity<Object> handleException(
-            RuntimeException ex, WebRequest request) {
-
+    @ExceptionHandler(value = { Exception.class })
+    public ResponseEntity<Object> handleGenericException(
+            Exception ex, WebRequest request) {
+        ex.printStackTrace();
         return handleExceptionInternal(ex, ApiResponse.internalServerError(),
                 new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }

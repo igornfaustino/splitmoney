@@ -13,6 +13,8 @@ public class Participant {
     String name;
 
     void setName(String name) {
+        if (name == null)
+            return;
         this.name = name.trim();
     }
 
@@ -20,6 +22,8 @@ public class Participant {
         String name;
 
         public ParticipantBuilder name(String name) {
+            if (name == null)
+                return this;
             this.name = name.trim();
             return this;
         }
