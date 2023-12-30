@@ -11,6 +11,7 @@ import com.nfaustino.splitmoney.shared.infra.data.GroupData;
 import com.nfaustino.splitmoney.shared.infra.data.ParticipantData;
 import com.nfaustino.splitmoney.shared.infra.repositories.GroupRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Repository
@@ -48,6 +49,7 @@ public class GroupServiceData implements GroupService {
     }
 
     @Override
+    @Transactional
     public Optional<Group> getGroupById(int id) {
         var result = repository.findById(id);
         return result.map(mapper::fromGroupData);
