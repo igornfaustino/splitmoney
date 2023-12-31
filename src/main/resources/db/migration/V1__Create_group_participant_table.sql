@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS "group" (
     id serial primary key, 
     name varchar(255)
 );
+
 CREATE TABLE IF NOT EXISTS "participant" (
     id serial primary key,
     name varchar(255),
