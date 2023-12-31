@@ -1,6 +1,6 @@
 # SplitMoney
 
-![Coverage](.github/badges/jacoco.svg)
+![Coverage](https://raw.githubusercontent.com/igornfaustino/splitmoney/badges/jacoco.svg)
 
 A project create to help organize debts in a group of friends
 
