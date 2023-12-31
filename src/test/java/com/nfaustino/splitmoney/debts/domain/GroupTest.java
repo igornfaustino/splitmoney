@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.nfaustino.splitmoney.shared.valueobjects.Money;
+
 public class GroupTest {
 	@Test
 	void Should_AddSplitValueWithEveryParticipant() {
@@ -36,25 +38,25 @@ public class GroupTest {
 						Outcome.builder()
 								.from(participant1)
 								.to(participant2)
-								.value(BigDecimal.valueOf(10.2))
+								.value(Money.real(10.2))
 								.createDate(date)
 								.description(description)
 								.build(),
 						Outcome.builder()
 								.from(participant1)
 								.to(participant3)
-								.value(BigDecimal.valueOf(10.2))
+								.value(Money.real(10.2))
 								.createDate(date)
 								.description(description)
 								.build());
 		assertThat(group.debtSummary.getDebt(participant1, participant2))
-				.isEqualTo(BigDecimal.valueOf(10.2));
+				.isEqualTo(Money.real(10.2));
 		assertThat(group.debtSummary.getDebt(participant1, participant3))
-				.isEqualTo(BigDecimal.valueOf(10.2));
+				.isEqualTo(Money.real(10.2));
 		assertThat(group.debtSummary.getDebt(participant2, participant1))
-				.isEqualTo(BigDecimal.valueOf(-10.2));
+				.isEqualTo(Money.real(-10.2));
 		assertThat(group.debtSummary.getDebt(participant3, participant1))
-				.isEqualTo(BigDecimal.valueOf(-10.2));
+				.isEqualTo(Money.real(-10.2));
 	}
 
 	@Test
@@ -71,7 +73,7 @@ public class GroupTest {
 				.value(value)
 				.date(date)
 				.description(description)
-				.build(), List.of(participants.get(1)));
+				.build(), List.of(participants.get(1).getId()));
 
 		var participant1 = participants.get(0).getId();
 		var participant2 = participants.get(1).getId();
@@ -83,18 +85,18 @@ public class GroupTest {
 						Outcome.builder()
 								.from(participant1)
 								.to(participant2)
-								.value(BigDecimal.valueOf(15.3))
+								.value(Money.real(15.3))
 								.createDate(date)
 								.description(description)
 								.build());
 		assertThat(group.debtSummary.getDebt(participant1, participant2))
-				.isEqualTo(BigDecimal.valueOf(15.3));
+				.isEqualTo(Money.real(15.3));
 		assertThat(group.debtSummary.getDebt(participant1, participant3))
-				.isEqualTo(BigDecimal.ZERO);
+				.isEqualTo(Money.real(0));
 		assertThat(group.debtSummary.getDebt(participant2, participant1))
-				.isEqualTo(BigDecimal.valueOf(-15.3));
+				.isEqualTo(Money.real(-15.3));
 		assertThat(group.debtSummary.getDebt(participant3, participant1))
-				.isEqualTo(BigDecimal.ZERO);
+				.isEqualTo(Money.real(0));
 	}
 
 	private Group createGroup() {

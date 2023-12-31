@@ -1,7 +1,8 @@
 package com.nfaustino.splitmoney.debts.domain;
 
-import java.math.BigDecimal;
 import java.time.Instant;
+
+import com.nfaustino.splitmoney.shared.valueobjects.Money;
 
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ import lombok.ToString;
 public class Outcome extends Transaction {
 
     @Builder
-    public Outcome(BigDecimal value, int from, int to, String description, Instant createDate) {
+    public Outcome(Money value, int from, int to, String description, Instant createDate) {
         super(value, from, to, description, createDate);
     }
 

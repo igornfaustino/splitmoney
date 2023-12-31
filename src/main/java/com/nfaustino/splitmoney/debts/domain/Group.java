@@ -1,9 +1,12 @@
 package com.nfaustino.splitmoney.debts.domain;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import com.nfaustino.splitmoney.shared.valueobjects.Money;
 
 import lombok.Builder;
 import lombok.Data;
@@ -23,19 +26,20 @@ public class Group {
     DebtSummary debtSummary = new DebtSummary();
 
     public void addPaymentSplitEqual(Payment payment) {
-        addPaymentSplitEqual(payment, this.participants);
+        addPaymentSplitEqual(payment, this.participants.stream().map(Participant::getId).toList());
     }
 
-    public void addPaymentSplitEqual(Payment payment, List<Participant> participants) {
+    public void addPaymentSplitEqual(Payment payment, List<Integer> participants) {
         var numberOfParticipants = getNumberOfParticipants(payment.getFrom(), participants);
-        var valueForEach = payment.value.divide(BigDecimal.valueOf(numberOfParticipants));
+        var valueForEach = Money
+                .real(payment.value.divide(BigDecimal.valueOf(numberOfParticipants), 2, RoundingMode.HALF_EVEN));
         var newTransactions = participants.stream()
-                .filter(participant -> participant.getId() != payment.from)
-                .map(participant -> {
-                    debtSummary.addDebt(payment.from, participant.getId(), valueForEach);
+                .filter(participantId -> participantId != payment.from)
+                .map(participantId -> {
+                    debtSummary.addDebt(payment.from, participantId, valueForEach);
                     return Outcome.builder()
                             .from(payment.from)
-                            .to(participant.getId())
+                            .to(participantId)
                             .createDate(payment.getDate())
                             .description(payment.getDescription())
                             .value(valueForEach)
@@ -44,10 +48,10 @@ public class Group {
         history.addAll(newTransactions);
     }
 
-    private int getNumberOfParticipants(int from, List<Participant> participants) {
-        var participantIds = new HashSet<Integer>();
-        participantIds.add(from);
-        participantIds.addAll(participants.stream().map(p -> p.getId()).toList());
-        return participantIds.size();
+    private int getNumberOfParticipants(int from, List<Integer> participants) {
+        var uniqueParticipantIds = new HashSet<Integer>();
+        uniqueParticipantIds.add(from);
+        uniqueParticipantIds.addAll(participants);
+        return uniqueParticipantIds.size();
     }
 }

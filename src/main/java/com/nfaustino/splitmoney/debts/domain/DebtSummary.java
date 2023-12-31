@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.javatuples.Pair;
 
+import com.nfaustino.splitmoney.shared.valueobjects.Money;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,9 +19,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DebtSummary {
     @Builder.Default
-    Map<Pair<Integer, Integer>, BigDecimal> summary = new HashMap<>();
+    Map<Pair<Integer, Integer>, Money> summary = new HashMap<>();
 
-    public void addDebt(int payer, int debtor, BigDecimal value) {
+    public void addDebt(int payer, int debtor, Money value) {
         var fromToCurrentDebt = getDebt(payer, debtor);
         putDebt(payer, debtor, fromToCurrentDebt.add(value));
 
@@ -27,11 +29,11 @@ public class DebtSummary {
         putDebt(debtor, payer, toFromCurrentDebt.subtract(value));
     }
 
-    public BigDecimal getDebt(int from, int to) {
-        return summary.getOrDefault(Pair.with(from, to), BigDecimal.ZERO);
+    public Money getDebt(int from, int to) {
+        return summary.getOrDefault(Pair.with(from, to), Money.real(BigDecimal.ZERO));
     }
 
-    private void putDebt(int from, int to, BigDecimal value) {
+    private void putDebt(int from, int to, Money value) {
         summary.put(Pair.with(from, to), value);
     }
 }
