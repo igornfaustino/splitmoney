@@ -1,5 +1,7 @@
 # SplitMoney
 
+![Coverage](.github/badges/jacoco.svg)
+
 A project create to help organize debts in a group of friends
 
 This project was created using fully from the scratch DDD best practices.
