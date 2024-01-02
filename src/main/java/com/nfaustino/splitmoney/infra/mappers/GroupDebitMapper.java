@@ -12,7 +12,6 @@ import org.mapstruct.Named;
 import com.nfaustino.splitmoney.debts.application.usecases.addDebit.AddDebitInput;
 import com.nfaustino.splitmoney.debts.domain.DebtSummary;
 import com.nfaustino.splitmoney.debts.domain.Group;
-import com.nfaustino.splitmoney.debts.domain.Outcome;
 import com.nfaustino.splitmoney.debts.domain.Transaction;
 import com.nfaustino.splitmoney.infra.controllers.dto.AddDebitRestInput;
 import com.nfaustino.splitmoney.infra.db.data.GroupData;
@@ -32,7 +31,7 @@ public interface GroupDebitMapper {
     @Mapping(target = "to", source = "historyData.toParticipant.id")
     @Mapping(target = "value", qualifiedByName = "BigDecimalToMoney")
     @Mapping(target = "createDate", source = "historyData.transactionDate")
-    Outcome map(HistoryData historyData);
+    Transaction map(HistoryData historyData);
 
     @Named("BigDecimalToMoney")
     default Money mapValue(BigDecimal value) {

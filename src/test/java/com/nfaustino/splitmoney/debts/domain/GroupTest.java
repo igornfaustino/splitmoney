@@ -35,14 +35,14 @@ public class GroupTest {
 				.isNotEmpty()
 				.hasSize(2)
 				.containsExactly(
-						Outcome.builder()
+						Transaction.builder()
 								.from(participant1)
 								.to(participant2)
 								.value(Money.real(10.2))
 								.createDate(date)
 								.description(description)
 								.build(),
-						Outcome.builder()
+						Transaction.builder()
 								.from(participant1)
 								.to(participant3)
 								.value(Money.real(10.2))
@@ -82,7 +82,7 @@ public class GroupTest {
 				.isNotEmpty()
 				.hasSize(1)
 				.containsExactly(
-						Outcome.builder()
+						Transaction.builder()
 								.from(participant1)
 								.to(participant2)
 								.value(Money.real(15.3))

@@ -37,7 +37,7 @@ public class Group {
                 .filter(participantId -> participantId != payment.from)
                 .map(participantId -> {
                     debtSummary.addDebt(payment.from, participantId, valueForEach);
-                    return Outcome.builder()
+                    return Transaction.builder()
                             .from(payment.from)
                             .to(participantId)
                             .createDate(payment.getDate())
