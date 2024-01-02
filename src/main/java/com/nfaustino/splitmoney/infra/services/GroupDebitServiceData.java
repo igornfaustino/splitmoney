@@ -14,6 +14,7 @@ import com.nfaustino.splitmoney.infra.db.data.HistoryData;
 import com.nfaustino.splitmoney.infra.db.data.ParticipantData;
 import com.nfaustino.splitmoney.infra.db.data.SummaryData;
 import com.nfaustino.splitmoney.infra.db.repositories.GroupRepository;
+import com.nfaustino.splitmoney.infra.db.repositories.HistoryRepository;
 import com.nfaustino.splitmoney.infra.db.repositories.SummaryRepository;
 import com.nfaustino.splitmoney.infra.mappers.GroupDebitMapper;
 
@@ -22,19 +23,20 @@ import lombok.AllArgsConstructor;
 @Repository
 @AllArgsConstructor
 public class GroupDebitServiceData implements GroupDebitService {
-    GroupRepository repository;
+    GroupRepository groupRepository;
     SummaryRepository summaryRepository;
+    HistoryRepository historyRepository;
     GroupDebitMapper mapper;
 
     @Override
     public Optional<Group> getGroupById(int id) {
-        var result = repository.findById(id);
+        var result = groupRepository.findById(id);
         return result.map(mapper::fromGroupData);
     }
 
     @Override
-    public boolean saveDebts(Group group) {
-        var groupData = repository.findById(group.getId()).orElseThrow(() -> new GroupNotFound(group.getId()));
+    public boolean saveSummaryAndHistory(Group group) {
+        var groupData = groupRepository.findById(group.getId()).orElseThrow(() -> new GroupNotFound(group.getId()));
         Map<Integer, ParticipantData> participantsMap = groupData.getParticipants().stream()
                 .collect(Collectors.toMap(ParticipantData::getId, Function.identity()));
 
@@ -59,8 +61,7 @@ public class GroupDebitServiceData implements GroupDebitService {
                 })
                 .toList();
 
-        groupData.getHistory().addAll(historyData);
-        repository.save(groupData);
+        historyRepository.saveAll(historyData);
         summaryRepository.saveAll(summaryData);
         return true;
     }

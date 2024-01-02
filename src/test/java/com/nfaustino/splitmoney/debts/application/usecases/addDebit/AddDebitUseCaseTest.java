@@ -37,7 +37,7 @@ public class AddDebitUseCaseTest {
     @Test
     void ShouldSplitPaymentBetweenEveryParticipantWhenNoParticipantsProvided() {
         when(groupDebitService.getGroupById(anyInt())).thenReturn(Optional.of(createGroup(3)));
-        when(groupDebitService.saveDebts(groupCaptor.capture())).thenReturn(true);
+        when(groupDebitService.saveSummaryAndHistory(groupCaptor.capture())).thenReturn(true);
         var input = AddDebitInput.builder()
                 .from(1)
                 .value(BigDecimal.TEN)
@@ -53,7 +53,7 @@ public class AddDebitUseCaseTest {
     @Test
     void ShouldSplitPaymentBetweenEveryParticipantWhenParticipantsIsEmpty() {
         when(groupDebitService.getGroupById(anyInt())).thenReturn(Optional.of(createGroup(3)));
-        when(groupDebitService.saveDebts(groupCaptor.capture())).thenReturn(true);
+        when(groupDebitService.saveSummaryAndHistory(groupCaptor.capture())).thenReturn(true);
         var input = AddDebitInput.builder()
                 .from(1)
                 .value(BigDecimal.TEN)
@@ -70,7 +70,7 @@ public class AddDebitUseCaseTest {
     @Test
     void ShouldSplitPaymentBetweenEveryProvidedParticipant() {
         when(groupDebitService.getGroupById(anyInt())).thenReturn(Optional.of(createGroup(3)));
-        when(groupDebitService.saveDebts(groupCaptor.capture())).thenReturn(true);
+        when(groupDebitService.saveSummaryAndHistory(groupCaptor.capture())).thenReturn(true);
         var input = AddDebitInput.builder()
                 .from(1)
                 .value(BigDecimal.TEN)

@@ -7,5 +7,5 @@ import com.nfaustino.splitmoney.debts.domain.Group;
 public interface GroupDebitService {
     public Optional<Group> getGroupById(int id);
 
-    public boolean saveDebts(Group group);
+    public boolean saveSummaryAndHistory(Group group);
 }
