@@ -3,7 +3,6 @@ package com.nfaustino.splitmoney.shared.valueobjects;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
-import java.util.Locale;
 
 import lombok.EqualsAndHashCode;
 
@@ -44,10 +43,6 @@ public class Money {
     @Override
     public String toString() {
         return getCurrency().getSymbol() + " " + getAmount();
-    }
-
-    public String toString(Locale locale) {
-        return getCurrency().getSymbol(locale) + " " + getAmount();
     }
 
     public Money add(Money value) {
