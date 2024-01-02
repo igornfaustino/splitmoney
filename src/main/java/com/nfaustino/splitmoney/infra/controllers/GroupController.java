@@ -7,13 +7,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nfaustino.splitmoney.debts.application.usecases.addDebit.AddDebitOutput;
+import com.nfaustino.splitmoney.debts.application.usecases.addDebit.AddDebitUseCase;
 import com.nfaustino.splitmoney.groups.application.usecases.AddParticipant.AddParticipantOutput;
 import com.nfaustino.splitmoney.groups.application.usecases.AddParticipant.AddParticipantUseCase;
 import com.nfaustino.splitmoney.groups.application.usecases.CreateGroup.CreateGroupOutput;
 import com.nfaustino.splitmoney.groups.application.usecases.CreateGroup.CreateGroupUseCase;
+import com.nfaustino.splitmoney.infra.controllers.dto.AddDebitRestInput;
 import com.nfaustino.splitmoney.infra.controllers.dto.AddParticipantRestInput;
 import com.nfaustino.splitmoney.infra.controllers.dto.CreateGroupRestInput;
 import com.nfaustino.splitmoney.infra.controllers.dto.GroupDetails;
+import com.nfaustino.splitmoney.infra.mappers.GroupDebitMapper;
 import com.nfaustino.splitmoney.infra.mappers.GroupMapper;
 import com.nfaustino.splitmoney.infra.queries.GroupQueries;
 import com.nfaustino.splitmoney.shared.base.ApiResponse;
@@ -27,7 +31,9 @@ import lombok.AllArgsConstructor;
 public class GroupController {
     CreateGroupUseCase createGroupUseCase;
     AddParticipantUseCase addParticipantUseCase;
+    AddDebitUseCase addDebitUseCase;
     GroupMapper mapper;
+    GroupDebitMapper groupDebitMapper;
     GroupQueries groupService;
 
     @GetMapping("/{groupId}")
@@ -48,6 +54,14 @@ public class GroupController {
             @Valid @RequestBody AddParticipantRestInput data) {
         var input = mapper.fromAddParticipantRestInput(groupId, data);
         var response = addParticipantUseCase.execute(input);
+        return ApiResponse.ok(response);
+    }
+
+    @PostMapping("/{groupId}/payment")
+    public ApiResponse<AddDebitOutput> addPayment(@PathVariable int groupId,
+            @Valid @RequestBody AddDebitRestInput data) {
+        var input = groupDebitMapper.map(groupId, data);
+        var response = addDebitUseCase.execute(input);
         return ApiResponse.ok(response);
     }
 

@@ -12,11 +12,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @Table(name = "group")
 @NoArgsConstructor
@@ -30,4 +32,12 @@ public class GroupData {
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     @Builder.Default
     List<ParticipantData> participants = new ArrayList<>();
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @Builder.Default
+    List<HistoryData> history = new ArrayList<>();
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @Builder.Default
+    List<SummaryData> summary = new ArrayList<>();
 }

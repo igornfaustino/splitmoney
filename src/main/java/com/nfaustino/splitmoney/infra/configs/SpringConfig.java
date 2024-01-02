@@ -3,6 +3,8 @@ package com.nfaustino.splitmoney.infra.configs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.nfaustino.splitmoney.debts.application.services.GroupDebitService;
+import com.nfaustino.splitmoney.debts.application.usecases.addDebit.AddDebitUseCase;
 import com.nfaustino.splitmoney.groups.application.usecases.AddParticipant.AddParticipantUseCase;
 import com.nfaustino.splitmoney.groups.application.usecases.CreateGroup.CreateGroupUseCase;
 import com.nfaustino.splitmoney.infra.services.GroupServiceData;
@@ -17,5 +19,10 @@ public class SpringConfig {
     @Bean
     public AddParticipantUseCase addParticipantUseCase(GroupServiceData groupService) {
         return new AddParticipantUseCase(groupService);
+    }
+
+    @Bean
+    public AddDebitUseCase addDebitUseCase(GroupDebitService groupService) {
+        return new AddDebitUseCase(groupService);
     }
 }

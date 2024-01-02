@@ -24,7 +24,7 @@ public class AddDebitUseCase extends UseCase<AddDebitInput, AddDebitOutput> {
             group.addPaymentSplitEqual(payment);
         else
             group.addPaymentSplitEqual(payment, input.participants());
-        groupDebitService.save(group);
+        groupDebitService.saveDebts(group);
         return AddDebitOutput.builder().build();
     }
 
