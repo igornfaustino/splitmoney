@@ -57,4 +57,8 @@ public class Money {
     public Money subtract(Money value) {
         return new Money(amount.subtract(value.getAmount()), this.currency);
     }
+
+    public Money divide(BigDecimal value) {
+        return new Money(this.amount.divide(value, 2, RoundingMode.HALF_EVEN), this.currency);
+    }
 }

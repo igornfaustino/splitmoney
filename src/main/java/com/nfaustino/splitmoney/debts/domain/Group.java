@@ -1,12 +1,9 @@
 package com.nfaustino.splitmoney.debts.domain;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import com.nfaustino.splitmoney.shared.valueobjects.Money;
 
 import lombok.Builder;
 import lombok.Data;
@@ -31,8 +28,7 @@ public class Group {
 
     public void addPaymentSplitEqual(Payment payment, List<Integer> participants) {
         var numberOfParticipants = getNumberOfParticipants(payment.getFrom(), participants);
-        var valueForEach = Money
-                .real(payment.value.divide(BigDecimal.valueOf(numberOfParticipants), 2, RoundingMode.HALF_EVEN));
+        var valueForEach = payment.value.divide(BigDecimal.valueOf(numberOfParticipants));
         var newTransactions = participants.stream()
                 .filter(participantId -> participantId != payment.from)
                 .map(participantId -> {

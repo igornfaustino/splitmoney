@@ -23,7 +23,7 @@ public class GroupTest {
 
 		group.addPaymentSplitEqual(Payment.builder()
 				.from(participants.get(0).getId())
-				.value(value)
+				.value(Money.real(value))
 				.date(date)
 				.description(description)
 				.build());
@@ -70,7 +70,7 @@ public class GroupTest {
 
 		group.addPaymentSplitEqual(Payment.builder()
 				.from(participants.get(0).getId())
-				.value(value)
+				.value(Money.real(value))
 				.date(date)
 				.description(description)
 				.build(), List.of(participants.get(1).getId()));

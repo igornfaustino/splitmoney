@@ -1,7 +1,8 @@
 package com.nfaustino.splitmoney.debts.domain;
 
-import java.math.BigDecimal;
 import java.time.Instant;
+
+import com.nfaustino.splitmoney.shared.valueobjects.Money;
 
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +11,7 @@ import lombok.Data;
 @Builder
 public class Payment {
     int from;
-    BigDecimal value;
+    Money value;
     String description;
 
     @Builder.Default

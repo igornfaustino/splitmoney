@@ -4,6 +4,7 @@ import com.nfaustino.splitmoney.debts.application.services.GroupDebitService;
 import com.nfaustino.splitmoney.debts.domain.Payment;
 import com.nfaustino.splitmoney.debts.domain.exceptions.GroupNotFound;
 import com.nfaustino.splitmoney.shared.base.UseCase;
+import com.nfaustino.splitmoney.shared.valueobjects.Money;
 
 import lombok.AllArgsConstructor;
 
@@ -17,7 +18,7 @@ public class AddDebitUseCase extends UseCase<AddDebitInput, AddDebitOutput> {
                 .orElseThrow(() -> new GroupNotFound(input.groupId()));
         var payment = Payment.builder().from(input.from())
                 .date(input.date())
-                .value(input.value())
+                .value(Money.real(input.value()))
                 .description(input.description())
                 .build();
         if (input.participants() == null || input.participants().isEmpty())
