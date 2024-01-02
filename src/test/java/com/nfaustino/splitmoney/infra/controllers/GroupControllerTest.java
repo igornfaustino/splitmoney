@@ -3,7 +3,6 @@ package com.nfaustino.splitmoney.infra.controllers;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -117,7 +116,7 @@ public class GroupControllerTest extends DatabaseTest {
         }
 
         @Test
-        @DataSet(value = "valid-group-with-participant.yml", cleanBefore = true, cleanAfter = true)
+        @DataSet(value = "expected/after-add-payment.yml", cleanBefore = true, cleanAfter = true)
         void should_GetGroup() {
                 var response = given()
                                 .port(port)
@@ -130,8 +129,9 @@ public class GroupControllerTest extends DatabaseTest {
                                 .body("success", equalTo(true))
                                 .body("data.id", equalTo(1000))
                                 .body("data.name", equalTo("Test Group"))
-                                .body("data.participants", hasSize(1))
-                                .body("data.participants.name", hasItem("Carlos"));
+                                .body("data.participants", hasSize(3))
+                                .body("data.groupHistory", hasSize(2))
+                                .body("data.summary", hasSize(4));
         }
 
         @Test
