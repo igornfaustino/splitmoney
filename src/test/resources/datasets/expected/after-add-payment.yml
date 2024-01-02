@@ -1,0 +1,48 @@
+group:
+  - id: 1000
+    name: "Test Group"
+
+participant:
+  - id: 1000
+    name: "Carlos"
+    group_id: 1000
+
+  - id: 1001
+    name: "Pedro"
+    group_id: 1000
+
+  - id: 1002
+    name: "Joao"
+    group_id: 1000
+
+history:
+  - description: "integration test"
+    transaction_date: "2024-01-02 12:01:43.777"
+    group_id: 1000
+    from_id: 1000
+    to_id: 1001
+    value: 30.10
+  - description: "integration test"
+    transaction_date: "2024-01-02 12:01:43.777"
+    group_id: 1000
+    from_id: 1000
+    to_id: 1002
+    value: 30.10
+
+summary:
+  - from_id: 1000
+    to_id: 1001
+    group_id: 1000
+    value: 30.10
+  - from_id: 1000
+    to_id: 1002
+    group_id: 1000
+    value: 30.10
+  - from_id: 1001
+    to_id: 1000
+    group_id: 1000
+    value: -30.10
+  - from_id: 1002
+    to_id: 1000
+    group_id: 1000
+    value: -30.10

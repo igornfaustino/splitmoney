@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.nfaustino.splitmoney.utils.DatabaseTest;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -145,5 +146,27 @@ public class GroupControllerTest extends DatabaseTest {
                                 .assertThat().statusCode(404)
                                 .body("success", equalTo(false))
                                 .body("message", equalTo("Group not found with id 1000"));
+        }
+
+        @Test
+        @DataSet(value = "valid-group-with-participants.yml", cleanBefore = true, cleanAfter = true)
+        @ExpectedDataSet(value = "expected/after-add-payment.yml")
+        void should_AddPayment() throws JSONException {
+                var response = given()
+                                .port(port)
+                                .body(new JSONObject()
+                                                .put("date", "2024-01-02T12:01:43.777Z")
+                                                .put("from", 1000)
+                                                .put("value", 90.30)
+                                                .put("description", "integration test")
+                                                .toString())
+                                .header("Content-Type", "application/json")
+                                .when()
+                                .post("/v1/group/1000/payment");
+
+                response.then()
+                                .assertThat().statusCode(200)
+                                .body("success", equalTo(true))
+                                .body("message", emptyOrNullString());
         }
 }

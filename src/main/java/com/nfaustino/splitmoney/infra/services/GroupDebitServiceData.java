@@ -49,6 +49,7 @@ public class GroupDebitServiceData implements GroupDebitService {
                     .fromParticipant(participantsMap.get(history.getFrom()))
                     .toParticipant(participantsMap.get(history.getTo()))
                     .value(history.getValue().getAmount())
+                    .transactionDate(history.getCreateDate())
                     .description(history.getDescription())
                     .build();
         }).toList();

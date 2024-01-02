@@ -14,10 +14,7 @@ public class AddDebitRestInput {
     int from;
 
     @NotNull
-    int to;
-
-    @NotNull
-    int value;
+    double value;
 
     String description;
 }

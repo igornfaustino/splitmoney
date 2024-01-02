@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.nfaustino.splitmoney.debts.domain.Group;
 import com.nfaustino.splitmoney.debts.domain.Participant;
 import com.nfaustino.splitmoney.debts.domain.Payment;
@@ -26,7 +27,7 @@ public class GroupDebitServiceDataTest extends DatabaseTest {
     HistoryRepository historyRepository;
 
     @Test
-    @DataSet(value = "valid-group-with-participants.yml", cleanBefore = true, cleanAfter = true)
+    @DataSet(value = "expected/after-add-payment.yml", cleanBefore = true, cleanAfter = true)
     void should_getGroupWithParticipants() {
         var optionalGroup = groupDebitServiceData.getGroupById(1000);
 
@@ -36,10 +37,16 @@ public class GroupDebitServiceDataTest extends DatabaseTest {
                 Participant.builder().id(1000).build(),
                 Participant.builder().id(1001).build(),
                 Participant.builder().id(1002).build());
+        assertThat(group.getHistory()).isEmpty();
+        assertThat(group.getDebtSummary().getDebt(1000, 1001)).isEqualTo(Money.real(30.10));
+        assertThat(group.getDebtSummary().getDebt(1000, 1002)).isEqualTo(Money.real(30.10));
+        assertThat(group.getDebtSummary().getDebt(1001, 1000)).isEqualTo(Money.real(-30.10));
+        assertThat(group.getDebtSummary().getDebt(1002, 1000)).isEqualTo(Money.real(-30.10));
     }
 
     @Test
     @DataSet(value = "valid-group-with-participants.yml", cleanBefore = true, cleanAfter = true)
+    @ExpectedDataSet(value = "expected/after-add-payment.yml")
     void should_SaveSummaryAndHistory() {
         var group = Group.builder()
                 .id(1000)
@@ -50,33 +57,12 @@ public class GroupDebitServiceDataTest extends DatabaseTest {
                                 Participant.builder().id(1002).build()))
                 .build();
         group.addPaymentSplitEqual(Payment.builder()
-                .date(Instant.parse("2007-12-03T10:15:30.00Z"))
+                .date(Instant.parse("2024-01-02T12:01:43.777Z"))
                 .value(Money.real(90.30))
                 .from(1000)
-                .description("test payment divided in 3")
+                .description("integration test")
                 .build());
 
         groupDebitServiceData.saveSummaryAndHistory(group);
-
-        var history = historyRepository.findByGroupId(1000);
-        assertThat(history).hasSize(2);
-        var testHistoryList = history.stream().map(h -> new TestHistory(h.getDescription(),
-                h.getFromParticipant().getId(),
-                h.getToParticipant().getId(),
-                Money.real(h.getValue()))).toList();
-        assertThat(testHistoryList).contains(
-                new TestHistory("test payment divided in 3", 1000, 1001, Money.real(30.10)),
-                new TestHistory("test payment divided in 3", 1000, 1002, Money.real(30.10)));
-        var optionalGroup = groupDebitServiceData.getGroupById(1000);
-        assertThat(optionalGroup).isPresent();
-        var savedGroup = optionalGroup.get();
-        assertThat(savedGroup.getHistory()).isEmpty();
-        assertThat(savedGroup.getDebtSummary().getDebt(1000, 1001)).isEqualTo(Money.real(30.10));
-        assertThat(savedGroup.getDebtSummary().getDebt(1000, 1002)).isEqualTo(Money.real(30.10));
-        assertThat(savedGroup.getDebtSummary().getDebt(1001, 1000)).isEqualTo(Money.real(-30.10));
-        assertThat(savedGroup.getDebtSummary().getDebt(1002, 1000)).isEqualTo(Money.real(-30.10));
     }
-}
-
-record TestHistory(String description, Integer from, Integer to, Money value) {
 }
