@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.nfaustino.splitmoney.groups.domain.Group;
 import com.nfaustino.splitmoney.groups.domain.Participant;
-import com.nfaustino.splitmoney.infra.db.repositories.GroupRepository;
 import com.nfaustino.splitmoney.utils.DatabaseTest;
 
 import jakarta.transaction.Transactional;
@@ -18,9 +17,6 @@ import jakarta.transaction.Transactional;
 public class GroupServiceDataTest extends DatabaseTest {
     @Autowired
     GroupServiceData groupServiceData;
-
-    @Autowired
-    GroupRepository groupRepository;
 
     @Test
     @Transactional

@@ -1,0 +1,16 @@
+group:
+  - id: 1000
+    name: "Test Group"
+
+participant:
+  - id: 1000
+    name: "Carlos"
+    group_id: 1000
+
+  - id: 1001
+    name: "Pedro"
+    group_id: 1000
+
+  - id: 1002
+    name: "Joao"
+    group_id: 1000

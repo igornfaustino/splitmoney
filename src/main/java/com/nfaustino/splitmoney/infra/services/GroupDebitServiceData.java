@@ -18,6 +18,7 @@ import com.nfaustino.splitmoney.infra.db.repositories.HistoryRepository;
 import com.nfaustino.splitmoney.infra.db.repositories.SummaryRepository;
 import com.nfaustino.splitmoney.infra.mappers.GroupDebitMapper;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Repository
@@ -29,12 +30,14 @@ public class GroupDebitServiceData implements GroupDebitService {
     GroupDebitMapper mapper;
 
     @Override
+    @Transactional
     public Optional<Group> getGroupById(int id) {
         var result = groupRepository.findById(id);
         return result.map(mapper::fromGroupData);
     }
 
     @Override
+    @Transactional
     public boolean saveSummaryAndHistory(Group group) {
         var groupData = groupRepository.findById(group.getId()).orElseThrow(() -> new GroupNotFound(group.getId()));
         Map<Integer, ParticipantData> participantsMap = groupData.getParticipants().stream()
