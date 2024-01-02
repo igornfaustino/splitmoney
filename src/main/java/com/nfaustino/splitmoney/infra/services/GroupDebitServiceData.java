@@ -33,7 +33,7 @@ public class GroupDebitServiceData implements GroupDebitService {
     }
 
     @Override
-    public Void saveDebts(Group group) {
+    public boolean saveDebts(Group group) {
         var groupData = repository.findById(group.getId()).orElseThrow(() -> new GroupNotFound(group.getId()));
         Map<Integer, ParticipantData> participantsMap = groupData.getParticipants().stream()
                 .collect(Collectors.toMap(ParticipantData::getId, Function.identity()));
@@ -62,6 +62,6 @@ public class GroupDebitServiceData implements GroupDebitService {
         groupData.getHistory().addAll(historyData);
         repository.save(groupData);
         summaryRepository.saveAll(summaryData);
-        return null;
+        return true;
     }
 }
