@@ -1,5 +1,6 @@
 package com.nfaustino.splitmoney.infra.mappers;
 
+import org.mapstruct.AnnotateWith;
 import org.mapstruct.Mapper;
 
 import com.nfaustino.splitmoney.groups.application.usecases.AddParticipant.AddParticipantInput;
@@ -10,6 +11,7 @@ import com.nfaustino.splitmoney.infra.controllers.dto.CreateGroupRestInput;
 import com.nfaustino.splitmoney.infra.controllers.dto.GroupDetails;
 import com.nfaustino.splitmoney.infra.db.data.GroupData;
 
+@AnnotateWith(GeneratedMapper.class)
 @Mapper(componentModel = "spring")
 public interface GroupMapper {
     public Group fromGroupData(GroupData data);

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.javatuples.Pair;
+import org.mapstruct.AnnotateWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -19,6 +20,7 @@ import com.nfaustino.splitmoney.infra.db.data.HistoryData;
 import com.nfaustino.splitmoney.infra.db.data.SummaryData;
 import com.nfaustino.splitmoney.shared.valueobjects.Money;
 
+@AnnotateWith(GeneratedMapper.class)
 @Mapper(componentModel = "spring")
 public interface GroupDebitMapper {
     @Mapping(target = "history", ignore = true)
